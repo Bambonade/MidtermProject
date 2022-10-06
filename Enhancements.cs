@@ -6,11 +6,7 @@ namespace MidtermProject {
         public double estimate { get; set; }
 
         public override string Entry(){
-            return $"{ticketID},{summary},{status},{priority},{submitter},{assigned},{string.Join("|", peopleWatching)},{software},{cost},{reason},{estimate}";
-        }
-
-        public string Read(){
-            return $"{ticketID},{summary},{status},{priority},{submitter},{assigned},{string.Join("|", peopleWatching)},{software},{cost:C2},{reason},{estimate:C2}";
+            return $"{ticketID},{summary},{status},{priority},{submitter},{assigned},{string.Join("|", peopleWatching)},{software},{cost},{reason},{estimate:C2}";
         }
     }
 }

@@ -25,9 +25,9 @@ namespace MidtermProject
                     Console.WriteLine("Bug/defect Tickets");
                     foreach(Bug bug in ticketFile.Bugs) Console.WriteLine(bug.Entry());
                     Console.WriteLine("Enhancement Tickets");
-                    foreach(Enhancement enhancement in ticketFile.Enhancements) Console.WriteLine(enhancement.Read());
+                    foreach(Enhancement enhancement in ticketFile.Enhancements) Console.WriteLine(enhancement.Entry());
                     Console.WriteLine("Task Tickets");
-                    foreach(Task task in ticketFile.Tasks) Console.WriteLine(task.Read());
+                    foreach(Task task in ticketFile.Tasks) Console.WriteLine(task.Entry());
                 }
                 
                 if (choice == "2") {

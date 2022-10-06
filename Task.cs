@@ -6,11 +6,7 @@ namespace MidtermProject {
         public DateTime dueDate { get; set; }
 
         public override string Entry(){
-            return $"{ticketID},{summary},{status},{priority},{submitter},{assigned},{string.Join("|", peopleWatching)},{projectName},{dueDate}";
-        }
-
-        public string Read(){
-            return $"{ticketID},{summary},{status},{priority},{submitter},{assigned},{string.Join("|", peopleWatching)},{projectName},{dueDate:MM}/{dueDate:dd}/{dueDate:yyyy}";
+            return $"{ticketID},{summary},{status},{priority},{submitter},{assigned},{string.Join("|", peopleWatching)},{projectName},{dueDate : dd}";
         }
     }
 }
