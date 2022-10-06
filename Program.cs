@@ -46,11 +46,48 @@ namespace MidtermProject
                         Enhancement enhancement = new Enhancement();
                         TicketInfo(enhancement);
                         enhancement.software = NullCheck("Enter Ticket Software", "software");
+                        bool continueAdd = true;
+                        do{
+                            try{
+                                enhancement.cost = Double.Parse(NullCheck("Enter Ticket Cost", "cost"));
+                                continueAdd = true;
+                            }catch (Exception){
+                                logger.Error("Not a correct number");
+                                continueAdd = false;
+                            }
+                            } while (continueAdd == false);
+                        enhancement.reason = NullCheck("Enter Ticket Reason", "reason");
+                        do{
+                            try {
+                                enhancement.estimate = Double.Parse(NullCheck("Enter Ticket Estimate", "estimate"));
+                                continueAdd = true;
+                            } catch (Exception){
+                                logger.Error("Not a correct number");
+                                continueAdd = false;
+                            }
+                        } while (continueAdd == false);
+                        ticketFile.AddEnhancementTicket(enhancement);
                     }
                     else if (ticketChoice == "3"){
                         Task task = new Task();
                         TicketInfo(task);
                         task.projectName = NullCheck("Enter Ticket Project Name", "project name");
+                        bool dateCheck = true;
+                        do {
+                            try {
+                                string dateEntry = NullCheck("Enter Ticket Due Date (Month/Day/Year)", "due date");
+                                string[] date = dateEntry.Split("/");
+                                int month = Int32.Parse(date[0]);
+                                int day = Int32.Parse(date[1]);
+                                int year = Int32.Parse(date[2]);
+                                task.dueDate = new DateTime (year,month,day);
+                                dateCheck = true;
+                            } catch (Exception) {
+                                logger.Error("Incorrect date entered");
+                                dateCheck = false;
+                            }
+                        } while(dateCheck == false);
+                        ticketFile.AddTaskTicket(task);
                     }
                 }
             } while (choice == "1" || choice == "2");
@@ -91,6 +128,6 @@ namespace MidtermProject
             } while (continueLoop == true);
 
             return entry;
+            }
         }
     }
-}
