@@ -9,9 +9,11 @@ namespace TicketingSystemWithClasses
         private static NLog.Logger logger = NLogBuilder.ConfigureNLog(Directory.GetCurrentDirectory() + "\\nlog.config").GetCurrentClassLogger();
         static void Main(string[] args)
         {
-            string ticketFilePath = Directory.GetCurrentDirectory() + "\\tickets.csv";
+            string ticketFilePath1 = Directory.GetCurrentDirectory() + "\\tickets1.csv";
+            string ticketFilePath2 = Directory.GetCurrentDirectory() + "\\tickets2.csv";
+            string ticketFilePath3 = Directory.GetCurrentDirectory() + "\\tickets3.csv";
             logger.Info("Program started");
-            TicketFile ticketFile = new TicketFile(ticketFilePath);
+            TicketFile ticketFile = new TicketFile(ticketFilePath1,ticketFilePath2,ticketFilePath3);
             string choice;
             do {
                 Console.WriteLine("1) Read ticket information");
@@ -20,10 +22,12 @@ namespace TicketingSystemWithClasses
                 choice = Console.ReadLine();
 
                 if (choice == "1") {
-                    foreach(Ticket ticket in ticketFile.Tickets)
-                    {
-                        Console.WriteLine(ticket.entry());
-                    }
+                    Console.WriteLine("Bug/defect Tickets");
+                    foreach(Bug bug in ticketFile.Bugs) Console.WriteLine(bug.Entry());
+                    Console.WriteLine("Enhancement Tickets");
+                    foreach(Enhancement enhancement in ticketFile.Enhancements) Console.WriteLine(enhancement.Read());
+                    Console.WriteLine("Task Tickets");
+                    foreac(Task task in ticketFile.Tasks) Console.WriteLine(task.Read());
                 }
                 
                 if (choice == "2") {
