@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using NLog.Web;
 
-namespace TicketingSystemWithClasses {
+namespace MidtermProject {
     public class TicketFile {
         public string filePath1 {get; set;}
         public string filePath2 {get; set;}
@@ -14,13 +14,13 @@ namespace TicketingSystemWithClasses {
         public List<Task> Tasks {get; set;}
         private static NLog.Logger logger = NLogBuilder.ConfigureNLog(Directory.GetCurrentDirectory() + "\\nlog.config").GetCurrentClassLogger();
 
-        public TicketFile(string ticketFilePath) {
+        public TicketFile(string ticketFilePath1,string ticketFilePath2,string ticketFilePath3) {
             filePath1 = ticketFilePath1;
             filePath2 = ticketFilePath2;
             filePath3 = ticketFilePath3;
             Bugs = new List<Bug>();
             Enhancements = new List<Enhancement>();
-            Tasks = new List<Tasks>();
+            Tasks = new List<Task>();
             if(File.Exists(filePath1))
             {
                 StreamReader ticketRead = new StreamReader(filePath1);
@@ -81,6 +81,21 @@ namespace TicketingSystemWithClasses {
             if (!File.Exists(filePath1) || !File.Exists(filePath2) || !File.Exists(filePath3))
             {
                 logger.Error("No files exist");
+            }
+        }
+
+        public void AddBugTicket(Bug bug) {
+            if(File.Exists(filePath1)) {
+                bug.ticketID = Bugs.Max(t => t.ticketID) + 1;
+                File.AppendAllText(filePath1, bug.Entry() + "\n");
+                logger.Info("Bug Ticket ID {0} added", bug.ticketID);
+            }
+            else {
+                StreamWriter ticketWrite = new StreamWriter(filePath1);
+                bug.ticketID = 1;
+                ticketWrite.Write(bug.Entry() + "\n");
+                ticketWrite.Close();
+                logger.Info("File {0} added and Bug Ticket ID {1} added", filePath1, bug.ticketID);
             }
         }
 

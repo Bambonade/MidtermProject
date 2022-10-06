@@ -2,7 +2,7 @@
 using System.IO;
 using NLog.Web;
 
-namespace TicketingSystemWithClasses
+namespace MidtermProject
 {
     class Program
     {
@@ -27,12 +27,39 @@ namespace TicketingSystemWithClasses
                     Console.WriteLine("Enhancement Tickets");
                     foreach(Enhancement enhancement in ticketFile.Enhancements) Console.WriteLine(enhancement.Read());
                     Console.WriteLine("Task Tickets");
-                    foreac(Task task in ticketFile.Tasks) Console.WriteLine(task.Read());
+                    foreach(Task task in ticketFile.Tasks) Console.WriteLine(task.Read());
                 }
                 
                 if (choice == "2") {
-                    Ticket ticket = new Ticket();
-                    ticket.summary = NullCheck("Enter Ticket Summary", "summary");
+                    Console.WriteLine("1) Enter a bug ticket");
+                    Console.WriteLine("2) Enter an enhancement ticket");
+                    Console.WriteLine("3) Enter a task ticket");
+                    Console.WriteLine("Enter anything else to exit");
+                    string ticketChoice = Console.ReadLine();
+                    if(ticketChoice == "1"){
+                        Bug bug = new Bug();
+                        TicketInfo(bug);
+                        bug.severity = NullCheck("Enter Ticket Severity", "severity");
+                        ticketFile.AddBugTicket(bug);
+                    }
+                    else if (ticketChoice == "2"){
+                        Enhancement enhancement = new Enhancement();
+                        TicketInfo(enhancement);
+                        enhancement.software = NullCheck("Enter Ticket Software", "software");
+                    }
+                    else if (ticketChoice == "3"){
+                        Task task = new Task();
+                        TicketInfo(task);
+                        task.projectName = NullCheck("Enter Ticket Project Name", "project name");
+                    }
+                }
+            } while (choice == "1" || choice == "2");
+
+            logger.Info("Program Ended");
+        }
+
+        public static void TicketInfo(Ticket ticket){
+            ticket.summary = NullCheck("Enter Ticket Summary", "summary");
                     ticket.status = NullCheck("Enter Ticket Status", "status");
                     ticket.priority = NullCheck("Enter Ticket Priority", "priority");
                     ticket.submitter = NullCheck("Enter the Ticket Submitter", "submitter");
@@ -46,11 +73,6 @@ namespace TicketingSystemWithClasses
                             ticket.peopleWatching.Add(anotherWatcher);
                         }
                     } while (anotherWatcher != "");
-                    ticketFile.AddTicket(ticket);
-                }
-            } while (choice == "1" || choice == "2");
-
-            logger.Info("Program Ended");
         }
 
         public static string NullCheck(string question, string errorName) {

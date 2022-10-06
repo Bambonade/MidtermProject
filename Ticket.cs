@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TicketingSystemWithClasses {
+namespace MidtermProject {
     public class Ticket {
         public UInt64 ticketID { get; set; }
         public string summary {get; set;}
